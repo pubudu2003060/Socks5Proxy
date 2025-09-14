@@ -4,6 +4,8 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const LISTEN_PORT = process.env.PROXY_PORT;
+const USERNAME = process.env.USER_NAME;
+const PASSWORD = process.env.PASSWORD;
 
 // Use SOCKSV5
 const SOCKS_VERSION = 0x05;
