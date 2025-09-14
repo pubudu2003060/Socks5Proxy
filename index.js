@@ -1,5 +1,6 @@
 import { createServer, createConnection } from "net";
 import dotenv from "dotenv";
+import fs from "fs";
 
 dotenv.config();
 
@@ -91,6 +92,15 @@ const server = createServer((clientSocket) => {
                 " " +
                 destPort
             );
+
+            const date = new Date();
+            const content = `Date: ${date} | Client -> ${clientSocket.remoteAddress} | Destination -> ${destAddr}:${destPort}`;
+
+            fs.appendFile("log_data.txt", content, "utf8", (err) => {
+              if (err) {
+                console.error("Error appending to file", err);
+              }
+            });
           }
         );
 

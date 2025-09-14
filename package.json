@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/pubudu2003060/Socks5Proxy#readme",
   "dependencies": {
-    "dotenv": "^17.2.2"
+    "dotenv": "^17.2.2",
+    "fs": "^0.0.1-security"
   }
 }
