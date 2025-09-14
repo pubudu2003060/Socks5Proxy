@@ -36,7 +36,7 @@ PASSWORD=pass
 Run the proxy server:
 
 ```bash
-node index.js
+npm start
 ```
 
 The server will start and listen on:
