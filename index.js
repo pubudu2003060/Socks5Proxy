@@ -94,7 +94,7 @@ const server = createServer((clientSocket) => {
             );
 
             const date = new Date();
-            const content = `Date: ${date} | Client -> ${clientSocket.remoteAddress} | Destination -> ${destAddr}:${destPort}`;
+            const content = `Date: ${date} | Client -> ${clientSocket.remoteAddress} | Destination -> ${destAddr}:${destPort}\n`;
 
             fs.appendFile("log_data.txt", content, "utf8", (err) => {
               if (err) {
