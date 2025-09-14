@@ -43,6 +43,26 @@ const server = createServer((clientSocket) => {
         );
         return;
       }
+
+      //Handle request
+      clientSocket.once("data", (req) => {
+        const cmd = req[1];
+        const addrType = req[3];
+        let destAddr, destPort;
+
+        if (addrType === 0x01) {
+          destAddr = req.slice(4, 8).join(".");
+          destPort = req.readUInt16BE(8);
+        } else if (addrType === 0x03) {
+          const len = req[4];
+          destAddr = req.slice(5, 5 + len).toString();
+          destPort = req.readUInt16BE(5 + len);
+        } else {
+          console.log("Destination address is not valid");
+          clientSocket.end();
+          return;
+        }
+      });
     });
   });
 
