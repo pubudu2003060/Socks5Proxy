@@ -62,6 +62,42 @@ const server = createServer((clientSocket) => {
           clientSocket.end();
           return;
         }
+
+        // Connect to destination
+        const remoteSocket = createConnection(
+          { host: destAddr, port: destPort },
+          () => {
+            const reply = Buffer.from([
+              SOCKS_VERSION,
+              0x00,
+              0x00,
+              0x01,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+            ]);
+            clientSocket.write(reply);
+
+            clientSocket.pipe(remoteSocket);
+            remoteSocket.pipe(clientSocket);
+            console.log(
+              "Connection Successfull" +
+                clientSocket.remoteAddress +
+                "->" +
+                destAddr +
+                " " +
+                destPort
+            );
+          }
+        );
+
+        remoteSocket.on("error", (err) => {
+          console.error("Remote connection error:" + err.message);
+          clientSocket.end();
+        });
       });
     });
   });
